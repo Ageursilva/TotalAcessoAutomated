@@ -29,10 +29,10 @@ def toggle_pause():
         continue_button.config(state=tk.DISABLED)
         can_refresh = True 
 
-intervalo = 20  # Tempo de espera em segundos
-tempo_inicial = time.time()  # Inicializa o tempo no início do script
-cliques_no_botao = 0  # Contador de cliques no botão
-limite_de_cliques = 3  # Número de cliques antes de recarregar a página
+intervalo = 20  
+tempo_inicial = time.time()  
+cliques_no_botao = 0  
+limite_de_cliques = 3  
 
 def execute_script():
     global can_refresh, tempo_inicial, cliques_no_botao
@@ -50,7 +50,7 @@ def execute_script():
 
                 try:
                     botao = driver.find_element(By.CSS_SELECTOR, 'button[data-cy="promocode-button"]')
-                    # Espere até que o elemento obscuro desapareça
+                    
                     WebDriverWait(driver, 5).until(EC.invisibility_of_element_located((By.CSS_SELECTOR, 'div.swal2-container')))
                     botao.click()
                     cliques_no_botao += 1
@@ -60,9 +60,9 @@ def execute_script():
                 tempo_passado = time.time() - tempo_inicial
                 if cliques_no_botao >= limite_de_cliques:
                     cliques_no_botao = 0
-                    driver.execute_script("location.reload(true);")  # Recarrega a página usando JavaScript
-                    tempo_inicial = time.time()  # Atualiza o tempo inicial
-                    can_refresh = False  # Impede que a página seja atualizada até que o script seja retomado
+                    driver.execute_script("location.reload(true);")  
+                    tempo_inicial = time.time()  
+                    can_refresh = False
     except KeyboardInterrupt:
         pass
 
